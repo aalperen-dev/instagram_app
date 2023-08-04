@@ -1,22 +1,28 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:instagram_app/resources/auth_method.dart';
 import 'package:instagram_app/utils/colors.dart';
+import 'package:instagram_app/utils/utils.dart';
 import 'package:instagram_app/widgets/text_field_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   // input controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
-
+  Uint8List? _image;
+  bool _isLoading = false;
   @override
   void dispose() {
     super.dispose();
@@ -26,9 +32,41 @@ class _LoginScreenState extends State<LoginScreen> {
     _usernameController.dispose();
   }
 
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+
+    setState(() {
+      _image = img;
+    });
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String res = await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      bio: _bioController.text,
+      file: _image!,
+    );
+
+    if (res != 'success') {
+      showSnackBar(res, context);
+    } else {}
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // field'lara focus yapınca ortaya çıkan overflow hatasının çözümü
+      // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -38,10 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                child: Container(),
-                flex: 2,
-              ),
+              Container(),
               // svg
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
@@ -50,6 +85,42 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(
                 height: 64,
+              ),
+              // avatar input
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64, backgroundImage: MemoryImage(_image!))
+                      : CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(
+                              'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg')),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: () {
+                        selectImage();
+                      },
+                      icon: const Icon(
+                        Icons.add_a_photo_outlined,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              //username input
+              TextFielInput(
+                textEditingController: _usernameController,
+                hinttext: 'Enter your username',
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 24,
               ),
               // email input
               TextFielInput(
@@ -70,21 +141,40 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 24,
               ),
-              // login
-              Container(
-                child: Text('Log in'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
+              //bio input
+              TextFielInput(
+                textEditingController: _bioController,
+                hinttext: 'Enter your bio',
+                textInputType: TextInputType.text,
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+
+              // sign up buton
+              InkWell(
+                onTap: signUpUser,
+                child: Container(
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : Text('Sign up'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12,
                   ),
-                  color: blueColor,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    color: blueColor,
+                  ),
                 ),
               ),
               const SizedBox(

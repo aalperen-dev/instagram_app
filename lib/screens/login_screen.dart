@@ -25,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // field'lara focus yapınca ortaya çıkan overflow hatasının çözümü
+      // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -66,21 +68,24 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 24,
               ),
-              // login
-              Container(
-                child: Text('Log in'),
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(
-                  vertical: 12,
-                ),
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(4),
-                    ),
+              // login buton
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  child: Text('Log in'),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12,
                   ),
-                  color: blueColor,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                    ),
+                    color: blueColor,
+                  ),
                 ),
               ),
               const SizedBox(
