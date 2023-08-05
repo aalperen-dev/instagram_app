@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_app/resources/storage_method.dart';
 
+import 'package:instagram_app/models/user.dart' as model;
+
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -36,16 +38,22 @@ class AuthMethods {
         String photoUrl = await StorageMethods()
             .upluadImageToStorage('profilePics', file, false);
 
+        // user modelini kullanma
+        model.UserModel user = model.UserModel(
+          email: email,
+          uid: cred.user!.uid,
+          photoUrl: photoUrl,
+          username: username,
+          bio: bio,
+          followers: [],
+          following: [],
+        );
+
         // kullanıcıyı database'e ekleme
-        await _firestore.collection('users').doc(cred.user!.uid).set({
-          'username': username,
-          'uid': cred.user!.uid,
-          'email': email,
-          'bio': bio,
-          'followers': [],
-          'followings': [],
-          'photoUrl': photoUrl,
-        });
+        await _firestore
+            .collection('users')
+            .doc(cred.user!.uid)
+            .set(user.toJson());
         res = 'success';
       }
     }
@@ -58,6 +66,37 @@ class AuthMethods {
     //   }
     // }
 
+    catch (e) {
+      res = e.toString();
+    }
+    return res;
+  }
+
+  // logging in user
+
+  Future<String> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    String res = "some error occurred!";
+
+    try {
+      // alanlar boş değilse login olacak
+      if (email.isNotEmpty || password.isNotEmpty) {
+        await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        res = "success";
+      } else {
+        res = "please enter all the fiedls";
+      }
+    }
+    // on FirebaseAuthException catch (error) {
+    //   if (error.code == 'user-not-found') {
+    //     res = 'user not found';
+    //   } else if (error.code == ' wrong-password') {
+    //     res = 'wrong password';
+    //   }
+    // }
     catch (e) {
       res = e.toString();
     }
