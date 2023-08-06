@@ -1,6 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_app/models/user.dart' as model;
+import 'package:instagram_app/providers/user_provider.dart';
+import 'package:instagram_app/screens/add_post_screen.dart';
+import 'package:instagram_app/utils/colors.dart';
+import 'package:instagram_app/utils/global_variables.dart';
+import 'package:provider/provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
@@ -10,33 +16,115 @@ class MobileScreenLayout extends StatefulWidget {
 }
 
 class _MobileScreenLayoutState extends State<MobileScreenLayout> {
-  String username = "";
+  // state management'a geçtiğimizden burası iptal
+  // datayı orada alıcaz.
+  // String username = "";
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUsername();
+  // }
+
+  // void getUsername() async {
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .get();
+
+  //   // print(snap.data());
+  //   setState(() {
+  //     username = (snap.data() as Map<String, dynamic>)['username'];
+  //   });
+  // }
+
+  int _page = 0;
+  late PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    getUsername();
+    pageController = PageController();
   }
 
-  void getUsername() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
 
-    // print(snap.data());
+  void navigationTapped(int page) {
+    pageController.jumpToPage(page);
+  }
+
+  void onPageChanged(int page) {
     setState(() {
-      username = (snap.data() as Map<String, dynamic>)['username'];
+      _page = page;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // statemanagement'dan gelen data
+    // model.UserModel user = Provider.of<UserProvider>(context).getUser;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Title'),
+      body: PageView(
+        children: homeScreenItems,
+        physics: NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: onPageChanged,
       ),
-      body: Center(child: Text('$username')),
+      bottomNavigationBar: CupertinoTabBar(
+        backgroundColor: mobileBackgroundColor,
+        items: [
+          // anasayfa
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home_outlined,
+              color: _page == 0 ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+          // arama
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.search_outlined,
+              color: _page == 1 ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+          // yeni ekleme
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_circle_outline,
+              color: _page == 2 ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+          // favoriler
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite_outlined,
+              color: _page == 3 ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+          // profil
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_outline,
+              color: _page == 4 ? primaryColor : secondaryColor,
+            ),
+            label: '',
+            backgroundColor: primaryColor,
+          ),
+        ],
+        onTap: navigationTapped,
+      ),
     );
   }
 }
