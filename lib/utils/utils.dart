@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// galeriden resim alma
 pickImage(ImageSource source) async {
   final ImagePicker _imagePicker = ImagePicker();
 
@@ -11,6 +12,7 @@ pickImage(ImageSource source) async {
   } else {}
 }
 
+// snackbar
 showSnackBar(String content, BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
