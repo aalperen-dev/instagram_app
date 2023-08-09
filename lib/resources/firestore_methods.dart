@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_app/models/post.dart';
 import 'package:instagram_app/resources/storage_method.dart';
+import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -21,18 +22,24 @@ class FirestoreMethods {
       String photoUrl =
           await StorageMethods().upluadImageToStorage('posts', file, true);
 
+      String postId = const Uuid().v1();
+
       PostModel post = PostModel(
         username: username,
         uid: uid,
         postId: postId,
         description: description,
         datePublished: DateTime.now(),
-        postUrl: postUrl,
+        postUrl: photoUrl,
         profImage: profImage,
-        likes: likes,
+        likes: [],
       );
+      // upload'ı burda yaptık
+      _firestore.collection('posts').doc(postId).set(post.toJson());
+      res = 'success';
     } catch (e) {
-      print(e);
+      res = e.toString();
     }
+    return res;
   }
 }

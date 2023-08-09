@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_app/models/user.dart';
 import 'package:instagram_app/providers/user_provider.dart';
+import 'package:instagram_app/resources/firestore_methods.dart';
 import 'package:instagram_app/utils/colors.dart';
 import 'package:instagram_app/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -18,14 +19,33 @@ class AddPostScreen extends StatefulWidget {
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   final TextEditingController _descriptionController = TextEditingController();
+  bool _isLoading = false;
 
   _postImage(
     String uid,
-    String usernama,
+    String username,
     String profImage,
   ) async {
-    try {} catch (e) {
-      print(e);
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      String res = await FirestoreMethods().uploadPost(
+          _descriptionController.text, _file!, uid, username, profImage);
+
+      if (res == 'success') {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar('Posted!', context);
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(res, context);
+      }
+    } catch (e) {
+      showSnackBar(e.toString(), context);
     }
   }
 
@@ -74,6 +94,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -98,12 +124,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
               centerTitle: true,
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-                onPressed: () {},
+                onPressed: clearImage,
                 icon: const Icon(Icons.arrow_back_outlined),
               ),
               actions: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    return _postImage(
+                      user.uid,
+                      user.username,
+                      user.photoUrl,
+                    );
+                  },
                   child: Text(
                     "Post",
                     style: TextStyle(
@@ -117,6 +149,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             body: Column(
               children: [
+                _isLoading
+                    ? LinearProgressIndicator()
+                    : Padding(
+                        padding: EdgeInsets.only(
+                          top: 0,
+                        ),
+                      ),
+                Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,6 +174,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           hintText: 'write a caption',
                           border: InputBorder.none,
                         ),
+                        keyboardType: TextInputType.text,
                         maxLines: 8,
                       ),
                     ),
