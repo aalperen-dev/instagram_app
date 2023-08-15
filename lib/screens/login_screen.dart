@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) {
-            return ResponsiveLayout(
+            return const ResponsiveLayout(
                 webScreenLayout: WebScreenLayout(),
                 mobileScreenLayout: MobileScreenLayout());
           },
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return SignupScreen();
+          return const SignupScreen();
         },
       ),
     );
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ? EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width / 3,
                 )
-              : EdgeInsets.symmetric(
+              : const EdgeInsets.symmetric(
                   horizontal: 32,
                 ),
           width: double.infinity,
@@ -91,13 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               // svg
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
-                color: primaryColor,
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
                 height: 64,
               ),
               const SizedBox(
@@ -126,19 +127,12 @@ class _LoginScreenState extends State<LoginScreen> {
               InkWell(
                 onTap: loginUser,
                 child: Container(
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
-                      : Text('Log in'),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 12,
                   ),
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(4),
@@ -146,14 +140,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     color: blueColor,
                   ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : const Text('Log in'),
                 ),
               ),
               const SizedBox(
                 height: 12,
               ),
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               // row
               Row(
@@ -162,24 +163,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   // hesap yok
                   InkWell(
                     child: Container(
-                      child: Text("Don't have an account?"),
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 8,
                       ),
+                      child: const Text("Don't have an account?"),
                     ),
                   ),
                   // üye ol
                   GestureDetector(
                     onTap: navigateToSignUp,
                     child: Container(
-                      child: Text(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                      child: const Text(
                         "Sign up.",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8,
                       ),
                     ),
                   ),

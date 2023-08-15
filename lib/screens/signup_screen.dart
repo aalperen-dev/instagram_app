@@ -63,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) {
-            return ResponsiveLayout(
+            return const ResponsiveLayout(
                 webScreenLayout: WebScreenLayout(),
                 mobileScreenLayout: MobileScreenLayout());
           },
@@ -80,7 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return LoginScreen();
+          return const LoginScreen();
         },
       ),
     );
@@ -93,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen> {
       // resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: 32,
           ),
           width: double.infinity,
@@ -104,7 +104,8 @@ class _SignupScreenState extends State<SignupScreen> {
               // svg
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
-                color: primaryColor,
+                colorFilter:
+                    const ColorFilter.mode(primaryColor, BlendMode.srcIn),
                 height: 64,
               ),
               const SizedBox(
@@ -116,7 +117,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   _image != null
                       ? CircleAvatar(
                           radius: 64, backgroundImage: MemoryImage(_image!))
-                      : CircleAvatar(
+                      : const CircleAvatar(
                           radius: 64,
                           backgroundImage: NetworkImage(
                               'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg')),
@@ -179,19 +180,12 @@ class _SignupScreenState extends State<SignupScreen> {
               InkWell(
                 onTap: signUpUser,
                 child: Container(
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
-                      : Text('Sign up'),
                   width: double.infinity,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     vertical: 12,
                   ),
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                         Radius.circular(4),
@@ -199,14 +193,21 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     color: blueColor,
                   ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : const Text('Sign up'),
                 ),
               ),
               const SizedBox(
                 height: 12,
               ),
               Flexible(
-                child: Container(),
                 flex: 2,
+                child: Container(),
               ),
               // row
               Row(
@@ -215,24 +216,24 @@ class _SignupScreenState extends State<SignupScreen> {
                   // hesap yok
                   InkWell(
                     child: Container(
-                      child: Text("Don't have an account?"),
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 8,
                       ),
+                      child: const Text("Don't have an account?"),
                     ),
                   ),
                   // üye ol
                   GestureDetector(
                     onTap: navigateToLogin,
                     child: Container(
-                      child: Text(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8,
                       ),
                     ),
                   ),

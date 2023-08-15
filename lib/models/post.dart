@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
@@ -11,7 +9,7 @@ class PostModel {
   final DateTime datePublished;
   final String postUrl;
   final String profImage;
-  final likes;
+  final dynamic likes;
 
   // constructor
   const PostModel({

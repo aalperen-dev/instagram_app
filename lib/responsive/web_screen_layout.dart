@@ -50,7 +50,7 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
           'assets/ic_instagram.svg',
           // color: primaryColor,
           height: 32,
-          colorFilter: ColorFilter.mode(
+          colorFilter: const ColorFilter.mode(
             primaryColor,
             BlendMode.srcIn,
           ),
@@ -94,10 +94,10 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
         ],
       ),
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        children: homeScreenItems,
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
     );
   }

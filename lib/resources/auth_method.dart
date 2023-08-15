@@ -1,11 +1,8 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:instagram_app/resources/storage_method.dart';
-
-import 'package:instagram_app/models/user.dart' as model;
+import '../resources/storage_method.dart';
+import '../models/user.dart' as model;
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -41,7 +38,7 @@ class AuthMethods {
             email: email, password: password);
 
         // user uid yazdirma
-        print(cred.user!.uid);
+        // print(cred.user!.uid);
 
         // resim yükleme ve adresini alma
         String photoUrl = await StorageMethods()

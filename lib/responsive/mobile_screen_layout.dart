@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_app/models/user.dart' as model;
-import 'package:instagram_app/providers/user_provider.dart';
-import 'package:instagram_app/screens/add_post_screen.dart';
 import 'package:instagram_app/utils/colors.dart';
 import 'package:instagram_app/utils/global_variables.dart';
-import 'package:provider/provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({super.key});
@@ -69,10 +64,10 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
 
     return Scaffold(
       body: PageView(
-        children: homeScreenItems,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
+        children: homeScreenItems,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,

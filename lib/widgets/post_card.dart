@@ -54,14 +54,14 @@ class _PostCardState extends State<PostCard> {
           color: width > webScreenSize ? secondaryColor : mobileBackgroundColor,
         ),
       ),
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 10,
       ),
       child: Column(
         // header section
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 4,
               horizontal: 16,
             ).copyWith(
@@ -76,7 +76,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 8,
                     ),
                     child: Column(
@@ -86,7 +86,7 @@ class _PostCardState extends State<PostCard> {
                         Text(
                           // kullanıcı adı
                           widget.snap['username'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -101,7 +101,7 @@ class _PostCardState extends State<PostCard> {
                       builder: (context) {
                         return Dialog(
                           child: ListView(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 16,
                             ),
                             shrinkWrap: true,
@@ -116,7 +116,7 @@ class _PostCardState extends State<PostCard> {
                                       Navigator.of(context).pop();
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                         vertical: 12,
                                         horizontal: 16,
                                       ),
@@ -158,18 +158,13 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 AnimatedOpacity(
-                  duration: Duration(
+                  duration: const Duration(
                     milliseconds: 200,
                   ),
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
-                    child: Icon(
-                      Icons.favorite_border_outlined,
-                      color: Colors.white,
-                      size: 120,
-                    ),
                     isAnimating: isLikeAnimating,
-                    duration: Duration(
+                    duration: const Duration(
                       milliseconds: 400,
                     ),
                     onEnd: () {
@@ -177,6 +172,11 @@ class _PostCardState extends State<PostCard> {
                         isLikeAnimating = false;
                       });
                     },
+                    child: const Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.white,
+                      size: 120,
+                    ),
                   ),
                 ),
               ],
@@ -201,7 +201,7 @@ class _PostCardState extends State<PostCard> {
                             Icons.favorite,
                             color: Colors.red,
                           )
-                        : Icon(
+                        : const Icon(
                             Icons.favorite_outline_outlined,
                             color: Colors.white,
                           )),
@@ -215,7 +215,7 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
-                icon: Icon(
+                icon: const Icon(
                   Icons.comment_outlined,
                 ),
               ),
@@ -237,7 +237,7 @@ class _PostCardState extends State<PostCard> {
           ),
           // desc
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 16,
             ),
             child: Column(
@@ -256,19 +256,19 @@ class _PostCardState extends State<PostCard> {
                 ),
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 8,
                   ),
                   child: RichText(
                     text: TextSpan(
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: primaryColor,
                       ),
                       children: [
                         // username buraya gelecek
                         TextSpan(
                           text: widget.snap['username'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -284,20 +284,21 @@ class _PostCardState extends State<PostCard> {
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
-                      'View all ${commentLen} comments.',
-                      style: TextStyle(fontSize: 16, color: secondaryColor),
+                      'View all $commentLen comments.',
+                      style:
+                          const TextStyle(fontSize: 16, color: secondaryColor),
                     ),
                   ),
                 ),
                 // tarih
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 4),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
                     DateFormat.yMMMd()
                         .format(widget.snap['datepublished'].toDate()),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       color: secondaryColor,
                     ),

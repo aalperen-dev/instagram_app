@@ -112,7 +112,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         await AuthMethods().signOut();
                                         Navigator.of(context)
                                             .pushReplacement(MaterialPageRoute(
-                                          builder: (context) => LoginScreen(),
+                                          builder: (context) =>
+                                              const LoginScreen(),
                                         ));
                                       },
                                     )
@@ -161,12 +162,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // kullanıcı adı
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 15,
                   ),
                   child: Text(
                     userData['username'],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -174,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 // desc
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 1,
                   ),
                   child: Text(
@@ -192,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 .get(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -200,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return GridView.builder(
                 shrinkWrap: true,
                 itemCount: (snapshot.data! as dynamic).docs.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 1.5,
@@ -209,13 +210,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 itemBuilder: (context, index) {
                   DocumentSnapshot snap =
                       (snapshot.data as dynamic).docs[index];
-                  return Container(
-                    child: Image(
-                      image: NetworkImage(
-                        snap['postUrl'],
-                      ),
-                      fit: BoxFit.cover,
+                  return Image(
+                    image: NetworkImage(
+                      snap['postUrl'],
                     ),
+                    fit: BoxFit.cover,
                   );
                 },
               );
@@ -233,18 +232,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Text(
           num.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         Container(
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             top: 4,
           ),
           child: Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
               color: Colors.grey,

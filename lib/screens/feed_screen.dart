@@ -27,7 +27,7 @@ class _FeedScreenState extends State<FeedScreen> {
               title: SvgPicture.asset(
                 'assets/ic_instagram.svg',
                 height: 32,
-                colorFilter: ColorFilter.mode(
+                colorFilter: const ColorFilter.mode(
                   primaryColor,
                   BlendMode.srcIn,
                 ),

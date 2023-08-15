@@ -43,7 +43,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -61,7 +61,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           height: kToolbarHeight,
           margin:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: 16,
             right: 8,
           ),
@@ -99,12 +99,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     _commentController.text = "";
                   });
                 },
-                child: Container(
-                  child: Text(
-                    'Post',
-                    style: TextStyle(
-                      color: blueColor,
-                    ),
+                child: const Text(
+                  'Post',
+                  style: TextStyle(
+                    color: blueColor,
                   ),
                 ),
               ),

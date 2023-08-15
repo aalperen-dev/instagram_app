@@ -9,10 +9,10 @@ import '../screens/add_post_screen.dart';
 const webScreenSize = 600;
 
 var homeScreenItems = [
-  FeedScreen(),
-  SearchScreen(),
-  AddPostScreen(),
-  Text('p4'),
+  const FeedScreen(),
+  const SearchScreen(),
+  const AddPostScreen(),
+  const Text('p4'),
   ProfileScreen(
     uid: FirebaseAuth.instance.currentUser!.uid,
   ),

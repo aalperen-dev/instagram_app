@@ -54,12 +54,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: Text('Create a Post'),
+          title: const Text('Create a Post'),
           children: [
             // kameradan resim ekleme
             SimpleDialogOption(
-              padding: EdgeInsets.all(20),
-              child: Text('Take a Photo'),
+              padding: const EdgeInsets.all(20),
+              child: const Text('Take a Photo'),
               onPressed: () async {
                 Navigator.of(context).pop();
                 Uint8List file = await pickImage(ImageSource.camera);
@@ -70,8 +70,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             // galeriden resim ekleme
             SimpleDialogOption(
-              padding: EdgeInsets.all(20),
-              child: Text('Choose from gallery'),
+              padding: const EdgeInsets.all(20),
+              child: const Text('Choose from gallery'),
               onPressed: () async {
                 Navigator.of(context).pop();
                 Uint8List file = await pickImage(ImageSource.gallery);
@@ -82,8 +82,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             // cancel
             SimpleDialogOption(
-              padding: EdgeInsets.all(20),
-              child: Text('Cancel'),
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -136,7 +136,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       user.photoUrl,
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     "Post",
                     style: TextStyle(
                       color: Colors.blueAccent,
@@ -150,13 +150,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
             body: Column(
               children: [
                 _isLoading
-                    ? LinearProgressIndicator()
-                    : Padding(
+                    ? const LinearProgressIndicator()
+                    : const Padding(
                         padding: EdgeInsets.only(
                           top: 0,
                         ),
                       ),
-                Divider(),
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +170,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       width: MediaQuery.of(context).size.width * 0.45,
                       child: TextField(
                         controller: _descriptionController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'write a caption',
                           border: InputBorder.none,
                         ),
@@ -194,7 +194,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         ),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       color: Colors.white,
                     ),
                   ],

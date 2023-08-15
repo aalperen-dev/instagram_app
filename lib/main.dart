@@ -2,13 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_app/providers/user_provider.dart';
-import 'package:instagram_app/responsive/mobile_screen_layout.dart';
-import 'package:instagram_app/responsive/responsive.dart';
-import 'package:instagram_app/responsive/web_screen_layout.dart';
-import 'package:instagram_app/screens/login_screen.dart';
-import 'package:instagram_app/screens/signup_screen.dart';
-import 'package:instagram_app/utils/colors.dart';
+import '../providers/user_provider.dart';
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive.dart';
+import '../responsive/web_screen_layout.dart';
+import '../screens/login_screen.dart';
+import '../utils/colors.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
-                return ResponsiveLayout(
+                return const ResponsiveLayout(
                   mobileScreenLayout: MobileScreenLayout(),
                   webScreenLayout: WebScreenLayout(),
                 );
@@ -78,7 +77,7 @@ class MyApp extends StatelessWidget {
                 ),
               );
             }
-            return LoginScreen();
+            return const LoginScreen();
           },
         ),
       ),

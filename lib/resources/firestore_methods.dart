@@ -57,7 +57,7 @@ class FirestoreMethods {
         });
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -71,7 +71,7 @@ class FirestoreMethods {
   ) async {
     try {
       if (text.isNotEmpty) {
-        String commentId = Uuid().v1();
+        String commentId = const Uuid().v1();
         await _firestore
             .collection('posts')
             .doc(postId)
@@ -85,12 +85,12 @@ class FirestoreMethods {
           'commentId': commentId,
           'datePublished': DateTime.now(),
         });
-        print('yorum başarılı');
+        // print('yorum başarılı');
       } else {
-        print('text is empty');
+        // print('text is empty');
       }
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -99,7 +99,7 @@ class FirestoreMethods {
     try {
       await _firestore.collection('posts').doc(postId).delete();
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
   }
 
@@ -127,6 +127,8 @@ class FirestoreMethods {
           'following': FieldValue.arrayUnion([followId])
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      // print(e.toString());
+    }
   }
 }

@@ -26,7 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
       appBar: AppBar(
         title: Form(
           child: TextFormField(
-            decoration: InputDecoration(labelText: 'Search for a user'),
+            decoration: const InputDecoration(labelText: 'Search for a user'),
             controller: searchController,
             onFieldSubmitted: (String _) {
               setState(() {
@@ -85,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
               future: FirebaseFirestore.instance.collection('posts').get(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 return MasonryGridView.count(
                   itemCount: (snapshot.data! as dynamic).docs.length,
