@@ -1,5 +1,3 @@
-# instagram_app
+# instagram clone app
 
-based on youtube video which you can find [here!](https://www.youtube.com/watch?v=mEPm9w5QlJM)
-
-
+an instagram clone app based on a youtube video which can be found [here!](https://www.youtube.com/watch?v=mEPm9w5QlJM)
