@@ -50,20 +50,29 @@ class _FeedScreenState extends State<FeedScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: width > webScreenSize ? width * 0.3 : 0,
-                  vertical: width > webScreenSize ? 15 : 0,
-                ),
-                child: PostCard(
-                  snap: snapshot.data!.docs[index].data(),
-                ),
-              );
-            },
-          );
+          if ((snapshot.data! as dynamic).docs.length <= 0) {
+            return const Center(
+              child: Text(
+                'No post :( ',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: width > webScreenSize ? width * 0.3 : 0,
+                    vertical: width > webScreenSize ? 15 : 0,
+                  ),
+                  child: PostCard(
+                    snap: snapshot.data!.docs[index].data(),
+                  ),
+                );
+              },
+            );
+          }
         },
       ),
     );

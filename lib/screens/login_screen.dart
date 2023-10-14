@@ -43,18 +43,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     if (res == "success") {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) {
-            return const ResponsiveLayout(
-                webScreenLayout: WebScreenLayout(),
-                mobileScreenLayout: MobileScreenLayout());
-          },
-        ),
-      );
+      if (context.mounted) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) {
+              return const ResponsiveLayout(
+                  webScreenLayout: WebScreenLayout(),
+                  mobileScreenLayout: MobileScreenLayout());
+            },
+          ),
+        );
+      }
     } else {
       // giriş başarısız ise
-      showSnackBar(res, context);
+      if (context.mounted) {
+        showSnackBar(res, context);
+      }
     }
 
     setState(() {
@@ -88,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
           width: double.infinity,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(
@@ -127,6 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
               InkWell(
                 onTap: loginUser,
                 child: Container(
+                  height: 50,
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(
@@ -169,6 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text("Don't have an account?"),
                     ),
                   ),
+                  const SizedBox(width: 5),
                   // üye ol
                   GestureDetector(
                     onTap: navigateToSignUp,

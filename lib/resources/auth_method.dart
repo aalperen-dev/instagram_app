@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,7 +95,7 @@ class AuthMethods {
             email: email, password: password);
         res = "success";
       } else {
-        res = "please enter all the fiedls";
+        res = "please fill all the fiedls";
       }
     }
     // on FirebaseAuthException catch (error) {
