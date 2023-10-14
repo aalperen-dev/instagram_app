@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -37,12 +39,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
         setState(() {
           _isLoading = false;
         });
-        showSnackBar('Posted!', context);
+
+        if (context.mounted) {
+          showSnackBar('Posted!', context);
+        }
       } else {
         setState(() {
           _isLoading = false;
         });
-        showSnackBar(res, context);
+        if (context.mounted) {
+          showSnackBar(res, context);
+        }
       }
     } catch (e) {
       showSnackBar(e.toString(), context);
@@ -111,8 +118,15 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final UserModel user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
-            child: IconButton(
-              icon: const Icon(Icons.upload_outlined),
+            child: TextButton.icon(
+              label: const Text(
+                'Make a post!',
+                style: TextStyle(color: Colors.white),
+              ),
+              icon: const Icon(
+                Icons.upload_outlined,
+                color: Colors.white,
+              ),
               onPressed: () {
                 return _selectImage(context);
               },
@@ -153,7 +167,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ? const LinearProgressIndicator()
                     : const Padding(
                         padding: EdgeInsets.only(
-                          top: 0,
+                          top: 5,
                         ),
                       ),
                 const Divider(),

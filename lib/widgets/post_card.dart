@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
-  final snap;
+  final Map<String, dynamic> snap;
   const PostCard({super.key, required this.snap});
 
   @override
